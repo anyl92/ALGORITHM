@@ -1,23 +1,38 @@
-# codewars - Regex validate PIN code
+#codewars - Vasya - Clerk
 
-def validate_pin(pin):
-    for i in range(len(pin)):
-        testi = str(pin)[i]
-        try:
-            int(testi)
-        except:
-            return False
-    if len(pin) == 4 or len(pin) == 6:
-        return True
+def tickets(people):
+    vasya_have = 0
+    money_25 = money_50 = money_100 = 0
+    for i in people:
+        if i == 25:
+            money_25 += 1
+        elif i == 50:
+            money_50 += 1
+            money_25 -= 1
+        elif i == 100:
+            if money_50 < 1 and money_25 > 1:
+                money_25 -= 2
+            money_100 += 1
+            money_25 -= 1
+            money_50 -= 1                    
+    if money_25 < 0 or money_50 < 0:    
+        return 'NO'
     else:
-        return False
+        return 'YES'
 
-print(validate_pin("2343\n"))
+# def tickets(people):
+#     have = 0
+#     for i in people:
+#         have += i
+#         if i > 25:
+#             change = i-25
+#             print(change)
+#             if change > have:
+#                 return "NO"
+#             else:
+#                 have -= change
+#     return "YES"
 
-
-def validate_pin(pin):
-    return len(pin) in (4, 6) and pin.isdigit()
-
-import re
-def validate_pin(pin):
-    return bool(re.match(r'^(\d{4}|\d{6})$',pin))
+print(tickets([25, 25, 50]))
+print(tickets([25, 100]))
+print(tickets([25, 25, 50, 50, 100]))
