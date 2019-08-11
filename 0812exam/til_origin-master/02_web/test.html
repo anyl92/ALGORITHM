@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .parent{
+            width: 150px;
+            height: 150px;
+            background-color: orange;
+            margin-top: 30px; margin-left: 30px;
+        }
+
+        .static-box {
+            position: static;
+            background-color: salmon;
+            color: red;
+            text-align: center;
+            height: 200px;
+            width: 200px;
+        }
+
+        .relative-box{
+            position: relative;
+            top: 50px; left: 50px;
+            background: skyblue;
+            text-align: center;
+            height: 150px;
+        }
+
+        .rel{
+            position: relative;
+        }
+
+        .absolute-box{
+            position: absolute;
+            height: 200px; width: 200px;
+            top: 50px; left: 50px;
+            background-color: greenyellow;
+            text-align: center;
+        }
+
+        .fixed-box {
+            position: fixed;
+            color: darkgray;
+            text-align: center;
+            background: black;
+        }
+
+        .sidebar {
+            top: 0;
+            right: 0;
+            width: 15vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .footer {
+            bottom: 0;
+            width: 100vw;
+            background: violet;
+            height: 10vh;
+        }
+        div > p {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <img src="" alt="">
+
+    <div>
+        <p>hhh</p>
+        <p>hi1</p>
+        <span>hi2</span>
+    </div>
+
+    <div class="parent">
+        <div class="static-box">
+            static-box
+        </div>
+    </div>
+    <hr>
+    <div class="parent">
+        <div class="relative-box">
+            relative-box
+        </div>
+    </div>
+    <hr>
+    <div class="parent rel">
+        <div class="absolute-box">
+            absolute-box(in parent)
+        </div>
+    </div>
+    <div class="absolute-box">
+        abs box(no parent)
+    </div>
+    <hr>
+    <div class="fixed-box sidebar">
+        fixed-box - sidebar
+    </div>
+    <div class="fixed-box footer">
+        fixed-box - footer
+    </div>
+    <q>fff</q>
+    <blockquote>ffffff</blockquote>
+</body>
+</html>

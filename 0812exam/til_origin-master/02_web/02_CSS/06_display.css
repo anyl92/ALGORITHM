@@ -1,0 +1,59 @@
+/* block 속성 */
+/* 
+    div
+    h1 ~ h6 / p
+    ol, ul, li / hr
+    table / form
+
+    항상 새로운 line 에서 시작
+    기본으로 width 100%
+    width height margin padding 속성 지정 가능.
+    block 요소 안에 inline 요소를 포함 가능
+*/
+
+.aa {
+    background-color: coral;
+    padding: 20px;
+}
+
+.bb {
+    background-color: aqua;
+    width: 300px;
+    padding: 20px;
+}
+
+/* inline 속성 */
+/* 
+    span
+    a / strong, em, del / img / br
+    input, select / textarea / button
+
+    새로운 라인에서 시작하지 않으며, 문장 중간에 쓸 수 있다.
+    content 너비만큼 가로폭을 차지한다.
+    width height margin padding 속성 지정 불가능. 행간으로 지정
+    inline 요소 뒤에 공백(\n, space)이 있으면, 자동으로 space(4px)가 들어간다.
+    inline 요소 안에 block 요소 포함 불가능.
+
+*/
+
+.xx {
+    width: 200px;
+}
+
+.big-lh {
+    line-height: 2em;
+}
+
+
+/* inline-block 속성 */
+/* 
+    inline 의 한줄표시 + block 의 margin, padding, width, height
+    content 너비만큼 가로폭
+    display: inline-block 인 요소들 뒤에 공백은 space(4px)
+    상하 여백: margin 과 line height 로 가능.
+    
+*/
+
+.ib {
+    display: inline-block;
+}

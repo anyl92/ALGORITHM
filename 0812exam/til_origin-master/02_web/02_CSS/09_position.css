@@ -1,0 +1,67 @@
+/* 
+    position 의 default
+    위 => 아래, 왼 => 오
+    부모요소 <=> 자식요소 부모의 위치가 기준점
+    좌표값을 줘도 안먹음.
+*/
+
+.parent {
+    width: 150px;
+    height: 150px;
+    background-color: orange;
+    border: 1px solid gray;
+    margin-top: 30px; margin-left: 30px
+}
+
+.static-box {
+    position: static;
+    background-color: salmon;
+    color: red;
+    text-align: center;
+    height: 150px;
+}
+
+.relative-box {
+    position: relative;
+    top: 50px; left: 50px;
+    background: skyblue;
+    text-align: center;
+    height: 150px;
+}
+
+.rel {
+    position: relative;
+}
+
+.absolute-box {
+    /* 부모(조상)이 static 이면, body 기준으로 움직임. */
+    /* 부모가 relative 면, 부모기준으로 움직임. */
+    position: absolute;
+    height: 200px; width: 200px;
+    top: 50px; left:50px;
+    background-color: greenyellow;
+    text-align: center;
+}
+
+.fixed-box {
+    position: fixed;
+    color: darkgray;
+    text-align: center;
+    background: black;
+}
+
+.sidebar {
+    top: 0;
+    right: 0;
+    width: 15vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+.footer {
+    bottom: 0;
+    width: 100vw;
+    background: violet;
+    height: 10vh;
+    
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS basic</title>
+    <style>
+        /* !important > inline css > [id > **class**] > *tag* > browser 기본 세팅*/
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        h2 {
+            color: pink !important;
+        }
+
+        h3 {
+            color: brown;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        .main-theme {
+            color: green;
+        }
+
+        .big {
+            font-size: 100px;
+        }
+
+        #green {
+            color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 class="big">Hello, CSS</h1>
+    <h2 id="green" class="blue">Selector</h2>
+    <h3 class="blue big">See how it works</h3>
+
+    <p class="main-theme">
+        Welcome to ssafy
+    </p>
+
+    <ul>
+        <li class="main-theme">밥</li>
+        <li class="main-theme">100만원</li>
+    </ul>
+</body>
+</html>

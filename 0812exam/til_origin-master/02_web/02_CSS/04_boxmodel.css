@@ -1,0 +1,19 @@
+div {
+    border: solid 1px black;
+    padding: 10px 1px 10px 10px;
+    margin: 10px;
+}
+
+div.a {
+    border-style: dotted;
+    border-width: 2px;
+    border-color: red;
+    padding: 20px;
+    /* 상하 좌우 */
+    margin: 50px 30px;
+}
+
+.like-p {
+    margin: 1em 0;
+}
+
