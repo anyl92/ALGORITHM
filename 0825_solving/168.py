@@ -1,8 +1,9 @@
-a = int(input())
+a = 6
 c = [[0]*a for _ in range(a)]
 for i in range(a):
     c[i][0] = 1
     c[i][i] = 1
+print(c)
 for i in range(2, a):
     for j in range(1, a):
         c[i][j] = c[i-1][j] + c[i-1][j-1]

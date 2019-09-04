@@ -1,16 +1,16 @@
+import sys
+sys.stdin = open('input.txt')
+
 def palin(list):
     i = 0
     fin = len(list) - 1
     stop = 0
-    # print(list)
     while fin != i and fin - i != 1:
-        # print(list)
         i += 1
         fin -= 1
         if list[i] != list[fin]:
             stop = 1
             break
-    # print(list)
     if stop == 1:
         return 0
     else:
@@ -25,7 +25,6 @@ def palin_sero(list):
         fin -= 1
         if list[i] != list[fin]:
             break
-    # print(list)
     return len(list)
 
 
@@ -36,7 +35,6 @@ for _ in range(10):
     result = maxi + 1
 
     for i in range(100):
-        # print(maxi)
         for j in range(0, 99 - maxi):
             for k in range(j + maxi - 1, 100):
                 if matrix[i][j] == matrix[i][k]:
@@ -49,8 +47,6 @@ for _ in range(10):
         for i in range(0, 99 - maxi):
             test = []
             for k in range(i, 100):
-                # if k - i <= maxi:
-                #     continue
                 test.append(matrix[k][j])
                 if matrix[i][j] == matrix[k][j]:
                     if palin(test) > maxi:
