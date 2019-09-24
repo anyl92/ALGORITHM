@@ -26,8 +26,6 @@ def perm(k):
         if V[i] == 1:
             continue
         if (sorted(T[:N//2]) in start) or (sorted(T[N//2:]) in link):
-            start += [sorted(T[:N // 2])]
-            link += [sorted(T[N // 2:])]
             T[k], T[i] = T[i], T[k]
             V[i] = 1
             perm(k + 1)
