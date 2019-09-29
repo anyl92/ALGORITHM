@@ -20,35 +20,36 @@ def calc(T):
         mini = tmp
 
 
-def perm(k):
-    global start, link
-    for i in range(k, N):
-        if V[i] == 1:
-            continue
-        if (sorted(T[:N//2]) in start) or (sorted(T[N//2:]) in link):
-            T[k], T[i] = T[i], T[k]
-            V[i] = 1
-            perm(k + 1)
-            T[k], T[i] = T[i], T[k]
-            V[i] = 0
-        else:
-            start += [sorted(T[:N // 2])]
-            link += [sorted(T[N // 2:])]
-            T[k], T[i] = T[i], T[k]
-            V[i] = 1
-            perm(k + 1)
-            T[k], T[i] = T[i], T[k]
-            V[i] = 0
-            calc(T)
+def combinations(n, list, combos=[]):
+    if combos is None:
+        combos = []
+
+    if len(list) == n:
+        if combos.count(list) == 0:
+            combos.append(list)
+        return combos
+    else:
+        for i in range(len(list)):
+            refined_list = list[:i] + list[i+1:]
+            combos = combinations(n, refined_list, combos)
+        return combos
 
 
 N = int(input())
 L = [list(map(int, input().split())) for _ in range(N)]
 
-start, link = [], []
-V = [0] * N
+tr = [0] * 4
+an = [0] * N
 T = [i for i in range(N)]
 mini = 999999
 
-perm(0)
+C = combinations(N//2, T)
+
+tmp = []
+for i in range(len(C)):
+    for j in range(len(C)):
+        if i != j:
+            if len(set(C[i] + C[j])) == N:
+                calc(C[i] + C[j])
+                break
 print(mini)
