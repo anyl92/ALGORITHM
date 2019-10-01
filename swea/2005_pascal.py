@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input.txt', 'r')
+sys.stdin = open('pascal_input.txt', 'r')
 
 T = int(input())
 for tc in range(1, T+1):
