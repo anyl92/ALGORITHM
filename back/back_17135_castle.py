@@ -4,7 +4,6 @@ sys.stdin = open('17135.txt', 'r')
 
 def attack(T):
     dir = [(0, -1), (-1, 0), (0, 1)]
-    V = [[0] * M for _ in range(N)]
     attack_list = []
     cnt = 0
 
@@ -23,12 +22,11 @@ def attack(T):
 
                     for _ in range(len(q)):
                         cur = q.pop(0)
-                        V[cur[0]][cur[1]] = 1
 
                         for d in dir:
                             rr = cur[0] + d[0]
                             cc = cur[1] + d[1]
-                            if 0 <= rr < N and 0 <= cc < M and V[rr][cc] == 0:
+                            if 0 <= rr < N and 0 <= cc < M:
                                 if L[rr][cc]:
                                     attack_list += [(rr, cc)]
                                     flag = False
