@@ -1,8 +1,6 @@
-# 벽돌깨기
 import sys
 sys.stdin = open('test2.txt', 'r')
 
-import collections
 
 def copy_list():
     for i in range(H):
@@ -17,7 +15,7 @@ def breakbricks(r, c, V):
 
     if L[c][r] == 1:
         L[c][r] = 0
-        return 0
+        return
 
     if L[c][r]:
         for d in dir:
@@ -32,7 +30,7 @@ def breakbricks(r, c, V):
                         L[cc][rr] = 0
                         V[cc][rr] = 1
         L[c][r] = 0
-    return 1
+    return
 
 
 def locate(T):
@@ -78,11 +76,10 @@ def locate(T):
 
 def comb(k):
     if k == N:
-        d
         locate(T)
         return
 
-    for i in range(W-1):
+    for i in range(W):
         T[k] = P[i]
         comb(k+1)
 
