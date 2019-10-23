@@ -3,22 +3,9 @@ sys.stdin = open('17142.txt', 'r')
 
 N, M = map(int, input().split())  # 크기 N, 바이러스 M
 L = [list(map(int, input().split())) for _ in range(N)]
-print(L)
+for k in L:
+    print(k)
 
-virus = collections.deque()
-
-for i in range(N):
-    for j in range(N):
-        if L[i][j] == 2:
-            virus.append((i, j))
-print(virus)
-
-P = [i for i in range(len(virus))]
-comb = list(itertools.combinations(P, M))
-print(comb)
-
-dir = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-min_cnt = 9999999999
 
 def bfs(dq, vst):
     global min_cnt
@@ -32,23 +19,57 @@ def bfs(dq, vst):
                 xx = x + d[0]
                 yy = y + d[1]
                 if 0 <= xx < N and 0 <= yy < N:
-                    if L[xx][yy] == 0 and vst[xx][yy] == 0:
-                        L[xx][yy] = cnt
+                    if L[yy][xx] == 0 and vst[yy][xx] == 0:
+                        # L[yy][xx] = cnt
                         dq.append((xx, yy))
-                        vst[xx][yy] = 1
+                        vst[yy][xx] = cnt
         cnt += 1
+
+    for i in range(N):
+        for j in range(N):
+            if vst[i][j] == 0:
+                min_cnt = -1
+                return
 
     if min_cnt > cnt:
         min_cnt = cnt
     return
 
 
+virus = collections.deque()  # 바이러스 append
+vst = [[0] * N for _ in range(N)]  # visited, 함수 종료 처리
+
+dir = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # x, y 좌우상하
+min_cnt = 9999999999
+
+for i in range(N):
+    for j in range(N):
+        if L[i][j] == 2:  # 바이러스 좌표추가, vst
+            virus.append((j, i))
+            vst[i][j] = 1
+        if L[i][j] == 1:  # 벽 vst
+            vst[i][j] = 1
+
+P = [i for i in range(len(virus))]
+comb = list(itertools.combinations(P, M))
+# print(comb)
+
+# for k in vst:
+#     print(k)
+
 for j in range(len(comb)):
     dq = collections.deque()
-    vst = [[0] * N for _ in range(N)]
-    for i in range(3):
+
+    cvst = [[0] * N for _ in range(N)]  # vst copy
+    for y in range(N):
+        for x in range(N):
+            cvst[y][x] = vst[y][x]
+    # print(cvst)
+
+    for i in range(M):
         dq.append(virus[comb[j][i]])
-        vst[virus[comb[j][i]][0]][virus[comb[j][i]][1]] = 1
-    bfs(dq, vst)
+        # cvst[virus[comb[j][i]][0]][virus[comb[j][i]][1]] = 1
+    bfs(dq, cvst)
+
 
 print(min_cnt)
