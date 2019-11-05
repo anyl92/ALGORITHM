@@ -1,20 +1,14 @@
 import sys
 sys.stdin = open('16234.txt', 'r')
 
-import collections
-
 N, S, B = map(int, input().split())
 L = [list(map(int, input().split())) for _ in range(N)]
 
 
 def bfs(j, i):
     global cnt, vst, calc_list
-    # dq = collections.deque([])
-    # calc_list = collections.deque([])
-    # dq.append((j, i))
     dq = [(j, i)]
     vst[i][j] = 1
-    # calc_list.append((j, i))
     calc_list = [(j, i)]
     calc_sum = L[i][j]
 
@@ -41,12 +35,12 @@ dir = [(1, 0), (0, 1), (-1, 0), (0, -1)]  # j, i 우하좌상
 cnt = 0
 
 
-while True:
+def main(L):
+    global cnt, vst, calc_list
     vst = [[0] * N for _ in range(N)]
-    # or_list = collections.deque([])
     or_list = []
     if cnt > 2000:
-        break
+        return 1
 
     for i in range(N):
         for j in range(N):
@@ -61,6 +55,10 @@ while True:
     cnt += 1
 
     if not sum(or_list):
-        break
+        return 1
 
-print(cnt-1)
+
+while 1:
+    if main(L):
+        print(cnt-1)
+        break
