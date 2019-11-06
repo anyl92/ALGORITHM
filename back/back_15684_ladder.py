@@ -1,13 +1,9 @@
 import sys
 sys.stdin = open('15684.txt', 'r')
 
-import itertools
-
+import itertools, collections
 W, M, H = map(int, input().split())
-print(W, M, H)
-
 L = [[0 for _ in range(W)] for _ in range(H)]
-print(L)
 
 for _ in range(M):
     a, b = map(int, input().split())
@@ -28,31 +24,16 @@ def make_ladder():
             if not L[h][w]:
                 if not L[h][w+1]:
                     ladder_list += [(w, h)]
-    print(ladder_list)
 
-    for ladder in ladder_list:
-        L[ladder[1]][ladder[0]] = 2
-        L[ladder[1]][ladder[0] + 1] = 3
-        check()
-        L[ladder[1]][ladder[0]] = 0
-        L[ladder[1]][ladder[0] + 1] = 0
+    for k in range(1, len(ladder_list)+1):
+        ladder_comb = collections.deque(itertools.combinations(ladder_list, k))
+        print(ladder_comb)
 
-
-    return ladder_list
-
-
-def comb(ladder):
-    for k in range(2, len(ladder)+1):
-        ladder_comb = list(itertools.combinations(ladder, k))
-        # print(ladder_comb)
+        comb = ladder_comb.popleft()  # 조합 한 쌍
 
 
 
 check()
 # ok되면 리턴/끝
-ladder = make_ladder()
-check()
-# ok되면 리턴/끝
-comb(ladder)
-check()
+make_ladder()
 # end
