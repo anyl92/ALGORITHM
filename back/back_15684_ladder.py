@@ -27,9 +27,13 @@ def make_ladder():
 
     for k in range(1, len(ladder_list)+1):
         ladder_comb = collections.deque(itertools.combinations(ladder_list, k))
-        print(ladder_comb)
 
-        comb = ladder_comb.popleft()  # 조합 한 쌍
+        while ladder_comb:
+            comb = ladder_comb.popleft()  # 조합 한 쌍
+            while comb:
+                w, h = comb.popleft()
+                L[h][w]
+
 
 
 
