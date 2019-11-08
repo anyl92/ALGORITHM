@@ -4,14 +4,13 @@ sys.stdin = open('15684.txt', 'r')
 import itertools, collections
 W, M, H = map(int, input().split())
 L = [[0 for _ in range(W)] for _ in range(H)]
-tmp = -1
 
 for _ in range(M):
     a, b = map(int, input().split())
     L[a-1][b-1] += 2
     L[a-1][b] += 3
-for l in L:
-    print(l)
+# for l in L:
+#     print(l)
 
 
 def check():  # r, c
@@ -49,7 +48,6 @@ def construction(comb):
             cnt += 1
     else:
         if check():
-            print(len(comb),'comb')
             return len(comb)
 
     for c in comb[:cnt]:
@@ -59,8 +57,6 @@ def construction(comb):
 
 
 def make_ladder():
-    global tmp
-
     ladder_list = []
     for h in range(H):
         for w in range(W-1):
@@ -68,25 +64,20 @@ def make_ladder():
                 if not L[h][w+1]:
                     ladder_list += [(w, h)]
 
-    for comb in ladder_list:
-        tmp = construction([comb])
-        if tmp:
-            return
-
-    for k in range(2, 4):
+    for k in range(1, 4):
         ladder_comb = collections.deque(itertools.combinations(ladder_list, k))
         while ladder_comb:
-            tmp = construction(ladder_comb.popleft())  # 조합 한 쌍
+            tmp = construction(ladder_comb.popleft())  # 조합 한 쌍씩
             if tmp:
-                return
+                return tmp
+    return -1
 
 
-if check():  # 맨 처음에 체크
-    print(0)
+def main():
+    if check():
+        return print(0)
+    return print(make_ladder())
 
-make_ladder()
-print(tmp,'tmp')
-if tmp >= 0:
-    print(tmp)
-else:
-    print(-1)
+
+main()
+# 271664	1836
