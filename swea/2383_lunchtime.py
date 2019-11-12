@@ -3,39 +3,67 @@ sys.stdin = open('2383.txt', 'r')
 
 
 def step_down(dist, step):
-    cnt = 0
+    cnt = dist[0]
     full = []
-    fullmax = []
-    mindist = dist[0]
-    stepval = L[step[0]][step[1]]
 
-    for k in range(len(dist)-1):
-        comp = dist[k + 1] - dist[k]
-        if comp == 0 or comp == 1:
-            continue
-        else:
-            cnt += comp
+    if len(full) < 2:
+        forcnt = 1
+        for d in range(len(dist)-1):
+            if dist[d] != dist[d+1]:
+                break
+            else:
+                forcnt += 1
 
-    while True:
-        if len(full) < 3 and dist:
-            popval = dist.pop(0)
-            full.append(popval)
-            fullmax.append(popval + stepval + 1)
-
-        while len(full) < 3 and dist and popval == dist[0]:
+    if len(full) < 3 and cnt == dist[0]:
+        for _ in range(forcnt):
+            full.append(step)
             dist.pop(0)
-            full.append(popval)
-            fullmax.append(popval + stepval + 1)
 
-        for f in range(len(full)):
-            full[f] += 1
+    elif len(full) < 3 and cnt != dist[0]:
+        for _ in range(forcnt):
+            full.append(step-1)
+            dist.pop(0)
 
-        while full and fullmax[0] == full[0]:
-            full.pop(0)
-            fullmax.pop(0)
-            if not full and not dist:
-                return mindist + cnt + 1
-        cnt += 1
+    cnt += 1
+    for f in range(len(full)):
+        full[f] -= 1
+
+
+
+
+    # cnt = 0
+    # full = []
+    # fullmax = []
+    # mindist = dist[0]
+    # stepval = L[step[0]][step[1]]
+    #
+    # for k in range(len(dist)-1):
+    #     comp = dist[k + 1] - dist[k]
+    #     if comp == 0 or comp == 1:
+    #         continue
+    #     else:
+    #         cnt += comp
+    #
+    # while True:
+    #     if len(full) < 3 and dist:
+    #         popval = dist.pop(0)
+    #         full.append(popval)
+    #         fullmax.append(popval + stepval + 1)
+    #
+    #     while len(full) < 3 and dist and popval == dist[0]:
+    #         dist.pop(0)
+    #         full.append(popval)
+    #         fullmax.append(popval + stepval + 1)
+    #
+    #     for f in range(len(full)):
+    #         full[f] += 1
+    #
+    #     while full and fullmax[0] == full[0]:
+    #         full.pop(0)
+    #         fullmax.pop(0)
+    #         if not full and not dist:
+    #             return mindist + cnt + 1
+    #     cnt += 1
 
 
 def step_find(q, step):
