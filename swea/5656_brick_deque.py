@@ -1,6 +1,6 @@
 # 벽돌깨기
 import sys
-sys.stdin = open('test2.txt', 'r')
+sys.stdin = open('5656.txt', 'r')
 
 import collections
 

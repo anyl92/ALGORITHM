@@ -98,4 +98,4 @@ for tc in range(1, T+1):
     P = [i for i in range(W)]
     comb(0)
 
-    print(min_bricks)
+    print('#%d %d' % (tc, min_bricks))
