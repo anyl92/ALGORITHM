@@ -1,6 +1,12 @@
-pws = [1]
+# pws = [1]
+#
+# for i in (len(pws)-1):
+#     print('hi!')
+#
+# print('?')
 
-for i in (len(pws)-1):
-    print('hi!')
+a = -3 / 2
+print(a)
 
-print('?')
+a = 0-(1 // 3)
+print(a)
