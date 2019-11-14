@@ -28,17 +28,16 @@ for tc in range(1, T+1):
             op = p[j]
             if op == 0:  # +
                 tot += L[i]
-            if op == 1:  # -
+            elif op == 1:  # -
                 tot -= L[i]
-            if op == 2:  # *
+            elif op == 2:  # *
                 tot *= L[i]
-            if op == 3:  # /
-                if L[i] == 0:
-                    break
-                if tot <= 0:
-                    tot = 0 - (abs(tot) // L[i])
-                else:
-                    tot //= L[i]
+            else:  # /
+                tot = int(tot / L[i])
+                # if tot <= 0:
+                #     tot = 0 - (abs(tot) // L[i])
+                # else:
+                #     tot //= L[i]
             j += 1
 
         if tot < minn:
