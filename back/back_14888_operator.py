@@ -3,49 +3,36 @@ sys.stdin = open('14888.txt', 'r')
 
 import itertools
 
-T = int(input())
-for tc in range(1, T+1):
-    N = int(input())
-    L = list(map(int, input().split()))
-    O = list(map(int, input().split()))
+N = int(input())
+L = list(map(int, input().split()))
+O = list(map(int, input().split()))
 
-    opr = []
-    for i in range(len(O)):
-        for j in range(O[i]):
-            opr += [i]
-    # print(opr)
+opr = []
+for i in range(4):
+    for j in range(O[i]):
+        opr += [i]
 
-    perm = set(list(itertools.permutations(opr, N-1)))
-    # print(perm)
+perm = list(itertools.permutations(opr, N-1))
 
-    minn = 10000000001
-    maxx = -10000000001
+minn = 10000000000001
+maxx = -10000000000001
 
-    for p in perm:
-        tot = L[0]
-        j = 0
-        for i in range(1, N):
-            op = p[j]
-            if op == 0:  # +
-                tot += L[i]
-            if op == 1:  # -
-                tot -= L[i]
-            if op == 2:  # *
-                tot *= L[i]
-            if op == 3:  # /
-                if L[i] == 0:
-                    break
-                if tot <= 0:
-                    tot = 0 - (abs(tot) // L[i])
-                else:
-                    tot //= L[i]
-            j += 1
+for p in perm:
+    tot = L[0]
+    for i in range(1, N):
+        if p[i-1] == 0:  # +
+            tot += L[i]
+        elif p[i-1] == 1:  # -
+            tot -= L[i]
+        elif p[i-1] == 2:  # *
+            tot *= L[i]
+        else:
+            tot = int(tot / L[i])
 
-        if tot < minn:
-            minn = tot
-        if tot > maxx:
-            maxx = tot
+    if tot < minn:
+        minn = tot
+    if tot > maxx:
+        maxx = tot
 
-    print(maxx)
-    print(minn)
-    print()
+print(maxx)
+print(minn)

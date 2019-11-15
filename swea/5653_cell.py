@@ -14,7 +14,6 @@ for tc in range(1, T+1):
             if arr[i][j]:
                 L[(K//2)+i][(K//2)+j] = [arr[i][j], 0]
 
-    # CL = [[0 for _ in range(M + K)] for _ in range(N + K)]
     cnt = 0
 
 
@@ -47,15 +46,11 @@ for tc in range(1, T+1):
             for j in range(M + K):
                 if L[i][j] and L[i][j][0] == L[i][j][1]:  # 활성
                     bfs_list[L[i][j][0]-1] += [(i, j)]
-        # print(bfs_list)
 
-        # for l in L:
-        #     print(l)
-        # print()
-
-        for b in bfs_list:
-            for i, j in b:
-                bfs(i, j)
+        for b in reversed(bfs_list):
+            if b:
+                for i, j in b:
+                    bfs(i, j)
 
         k += 1
 
@@ -65,9 +60,7 @@ for tc in range(1, T+1):
                 L[i][j][0] = 0
             if L[i][j] and L[i][j][0]:
                 cnt += 1
-
-    for l in L:
-        print(l)
-    print()
+            if L[i][j] and L[i][j][1] == -1:
+                cnt -= 1
 
     print('#%d %d' % (tc, cnt))
