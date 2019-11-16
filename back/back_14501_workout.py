@@ -1,32 +1,38 @@
 import sys
 sys.stdin = open('14501.txt', 'r')
 #
-# T = int(input())
-# for tc in range(1, T+1):
-N = int(input())
-L = [list(map(int, input().split())) for _ in range(N)]
-maxi = 0
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+    Ti = [0]*N
+    Pi = [0]*N
+    Si = [0]*N
+    for i in range(N):
+        Ti[i], Pi[i] = map(int, input().split())
+    maxi = 0
 
-powerset = [[]]
-for e in [i for i in range(N)]:
-    powerset += [x + [e] for x in powerset]
-powerset.pop(0)
-print(powerset)
 
-def aa():
-    for pws in powerset:
-        day = pws[0] + 1 + L[pws[0]][0]
-        cost = L[pws[0]][1]
+    def solve(k):
+        global maxi
+        if k == N:
+            for i in range(N):
+                if Si[i]:
+                    for j in range(i+1, i+Ti[i]):
+                        if j >= N or Si[j]:
+                            return
+            tsum = 0
+            for i in range(N):
+                if Si[i]:
+                    tsum += Pi[i]
+            if tsum > maxi:
+                maxi = tsum
 
-        if len(pws) <= 1:
-            if day + L[pws[0]][0] <= N:
-                # return L[pws[0]][1]
-                continue
+        else:
+            Si[k] = 1
+            solve(k+1)
+            Si[k] = 0
+            solve(k+1)
 
-        for p in range(1, len(pws)):
-            if day <= L[pws[p]]+1:
-                if day + L[pws[p]][0] <= N:
-                    day += L[pws[p]][0]
-                    cost += L[pws[p]][1]
 
-aa()
+    solve(0)
+    print(maxi)

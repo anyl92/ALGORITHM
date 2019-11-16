@@ -30,27 +30,25 @@ for tc in range(1, T+1):
     #     return
 
 
-    def recul(i, j, d):
-        global chk
+    def recul(i, j):
+        global chk, flag
+        ii, jj = i + dir[flag][0], j + dir[flag][1]
 
-        ii, jj = i + dir[d][0], j + dir[d][1]
         if ii == i and jj == j:
             return
 
-        if not (0 <= ii < N or 0 <= jj < N):
+        if not (0 <= ii < N and 0 <= jj < N):
+            flag += 1
             return
 
-        chk += [L[i][j]]
-        vst[i][j] = 1
-        recul(ii, jj, d)
-        recul(i, j, d + 1)
-        vst[i][j] = 0
-        chk.pop()
-
+        recul(ii, jj)
+        recul(ii, jj)
         return
+
 
     chk = []
     for i in range(N-2):
         for j in range(1, N-1):
-            print(recul(i, j, 0))
+            flag = 0
+            print(recul(i, j))
 
