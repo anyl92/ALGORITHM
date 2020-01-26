@@ -2,26 +2,21 @@ import sys
 sys.stdin = open('input.txt', 'r')
 
 N, M = list(map(int, input().split()))
-
-import math
-C = math.factorial(N) // math.factorial(N-M) * math.factorial(M)
-
 perm_list = sorted(list(map(int, input().split())))
-pre_list = []
 
 def perm(k):
-    global pre_list
+    flag = 0
     if k == M:
-        if pre_list != T:
+        for i in range(M-1):
+            if T[i] >= T[i+1]:
+                break
+        else:
+            flag = 1
+
+        if flag:
             for i in range(M):
                 print(T[i], end=' ')
             print()
-            pre_list = []
-        else:
-            return
-        
-        for i in range(len(T)):
-            pre_list.append(T[i])
         return
     
     for i in range(N):
