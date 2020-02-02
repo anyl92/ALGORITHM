@@ -7,28 +7,22 @@ import math
 C = math.factorial(N) // math.factorial(N-M) * math.factorial(M)
 
 perm_list = sorted(list(map(int, input().split())))
-pre_list = []
+new_perm_list = []
+for i in set(perm_list):
+    new_perm_list.append(i)
 
 def perm(k):
-    global pre_list
     if k == M:
-        if pre_list != T:
-            for i in range(M):
-                print(T[i], end=' ')
-            print()
-            pre_list = []
-        else:
-            return
-        
-        for i in range(len(T)):
-            pre_list.append(T[i])
+        for i in range(M):
+            print(T[i], end=' ')
+        print()
         return
     
-    for i in range(N):
+    for i in range(len(new_perm_list)):
         if visited[i] == 1:
             continue
         visited[i] = 1
-        T[k] = perm_list[i]
+        T[k] = new_perm_list[i]
         perm(k+1)
         visited[i] = 0
 
