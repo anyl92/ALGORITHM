@@ -6,7 +6,7 @@ for tc in range(1, T+1):
     R, C, K = map(int, input().split())
     L = [list(map(int, input().split())) for _ in range(K)]
 
-    mat = [[0]*(R) for _ in range(C)]
+    mat = [[0]*R for _ in range(C)]
 
     for l in L:
         mat[l[1]][l[0]] = 1
@@ -14,7 +14,7 @@ for tc in range(1, T+1):
     for z in mat:
         print(z)
 
-    v = [[0]*(R) for _ in range(C)]
+    v = [[0]*R for _ in range(C)]
     def dfs(r, c):
         s = [(r, c)]
         v[c][r] = 1
