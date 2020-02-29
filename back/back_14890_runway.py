@@ -1,123 +1,158 @@
 import sys
 sys.stdin = open('14890.txt', 'r')
 
-N, K = map(int, input().split())
-L = [list(map(int, input().split())) for _ in range(N)]
+N, L = map(int, input().split())
+map = [list(map(int, input().split())) for _ in range(N)]
+waylist = [[0]*N for _ in range(N)]
 
-# for i in range(N):
-#     for j in range(N):
-#         CL[i][j] = L[i][j]
-
-SL = [[0]*N for _ in range(N)]
 for i in range(N):
     for j in range(N):
-        SL[j][i] = L[i][j]
+        waylist[i][j] = map[i][j]
 
-cnt = 0
-
-
-def find(L):
-    global cnt
-
+for j in range(N):
+    tmp = []
     for i in range(N):
-        flag = False
-        chk, tmp = 0, 0
-        while not tmp:
-            if CL[i][chk] != 11:
-                tmp = L[i][chk]
-                break
-            else:
-                chk += 1
-
-        j = chk+1
-        while j < N:
-            if CL[i][j] == 11:
-                ele_cnt = 0
-                tmp_left = L[i][j-1]
-                while CL[i][j] == 11:
-                    ele_cnt += 1
-                    j += 1
-                    if j > N-1:
-                        flag = True
-                        print(L[i], 'flag')
-                        cnt += 1
-                        break
-                if flag:
-                    continue
-                tmp_right = L[i][j]
-                calc = abs(tmp_left-tmp_right)
-                if calc == 0:
-                    break
-                if (ele_cnt//K) == calc:
-                    tmp = L[i][j]
-                    j += 1
-                    continue
-            if L[i][j] != tmp:
-                j += 1
-                break
-            j += 1
-        else:
-            if not flag:
-                print(L[i], 'cnt')
-                cnt += 1
-
-    return cnt
-
-    # for i in range(N):
-    #     tmp = L[i][0]
-    #     for j in range(1, N):
-    #         if tmp != L[i][j]:
-    #             break
-    #     else:
-    #         cnt += 1
-    #
-    # for i in range(N):
-    #     tmp = L[0][i]
-    #     for j in range(1, N):
-    #         if tmp != L[j][i]:
-    #             break
-    #     else:
-    #         cnt += 1
+        tmp.append(map[i][j])
+    waylist.append(tmp)
 
 
-def runway(L):
-    for i in range(N):
-        for j in range(1, N):
-            tmp_list = []
-            left = L[i][j - 1]
-            right = L[i][j]
+def firstchk(way):
+    for w in range(N-1):
+        if abs(way[w] - way[w + 1]) >= 2:
+            return 1
+    for w in way:
+        if way[0] != w:
+            return -1  # 돌아라
+    return 0
 
-            if left - right == 1 and j+K <= N :  # 왼쪽이 한 칸 더 높
-                tmp_list += [(i, j)]
-                for k in range(1, K):  # 설치 길이만큼
-                    if right != L[i][j+k] or CL[i][j+k] == 11 or CL[i][j] == 11:
-                        tmp_list = []
-                        break
-                    tmp_list += [(i, j+k)]  # 같으면 배열에 저장
-                if tmp_list:
-                    for i, j in tmp_list:  # 좌표를 뽑아냄
-                        CL[i][j] = 11  # 설치 값 추가
 
-            elif left - right == -1 and j-K >= 0:  # 오른쪽이 한 칸 더 높
-                tmp_list += [(i, j-1)]
-                for k in range(1, K):
-                    if left != L[i][j-k-1] or CL[i][j-k-1] == 11 or CL[i][j-1] == 11:
-                        tmp_list = []
-                        break
-                    tmp_list += [(i, j-k-1)]
-                if tmp_list:
-                    for i, j in tmp_list:  # 좌표를 뽑아냄
-                        CL[i][j] = 11  # 설치 값 추가
+def const_right_up(way, w):
+    for l in range(1, L+1):  # 왼쪽을 이만큼 볼거고
+        if way[w] != way[w - l]:  # 걔들이 나랑 다르면 나가
+            return 1
+    return 0
 
-    for a in CL:
-        print(a)
 
-    find(L)
+def const_right_down(way, w, chk):
+    for l in range(2, L + 2):
+        if chk != way[w + l]:  # 오른쪽을 볼거 다르면 나가
+            return 1
+    return 0
+
+
+def const_left_up(way, w):
+    for l in range(1, L+1):  # 나부터 볼거니까
+        if way[w] != way[w - l]:
+            return 1
+    return 0
+
+
+def const_left_down(way, w, chk):
+    for l in range(2, L + 2):
+        if chk != way[w + l]:
+            return 1
+    return 0
+
+
+def lastchk(way):
+    if (L*2) + 2 <= N:
+        for w in range(N - (L*2)):
+            if way[w + (L * 2)] == way[w]:
+                chk = way[w + 1]
+                if chk == way[w] - 1:  # 다음애가 1작으면
+                    for l in range(L*2):
+                        if chk != way[w + l]:  # 모두 같지 않으면 나가
+                            return 1
+    return 0
+
+
+poplist = []
+for way in waylist:
+    chknum = firstchk(way)
+    if chknum == 0:
+        continue
+    elif chknum == 1:
+        poplist.append(way)
+    elif chknum == -1:
+        chklist = [0, 0, 0, 0]
+        for w in range(L, N-1):
+            chk = way[w + 1]  # 다음 애를 볼거임
+            if way[w]+1 == chk:  # 나보다 크면
+                chklist[0] = const_right_up(way, w)
+
+            chk = way[w - 1]  # 이전 애를 볼거임
+            if way[w]-1 == chk:  # 나보다 작으면
+                chklist[1] = const_left_down(way, w, chk)
+
+        for w in range(N - L):
+            chk = way[w + 1]  # 다음 애를 볼거임
+            if way[w]-1 == chk:  # 나보다 작으면
+                chklist[2] = const_right_down(way, w, chk)
+
+            chk = way[w - 1]  # 이전 애를 볼거임
+            if way[w]+1 == chk:  # 나보다 크면
+                chklist[3] = const_left_up(way, w)
+
+        if sum(chklist) != 0:
+            chknum = lastchk(way)
+            if chknum:
+                poplist.append(way)
+
+for p in poplist:
+    waylist.remove(p)
+print(len(waylist), waylist)
 
 
 
-for l in (L, SL):
-    CL = [[0] * N for _ in range(N)]
-    runway(l)
 
-print(cnt)
+# def const(way):
+#     for x in way[:K]:
+#         if x != way[0]:
+#             return 1
+#     for x in way[N-K:]:
+#         if x != way[-1]:
+#             return 1
+#
+#
+# def const1(way):
+#     for w in range(N - K):
+#         chknum = way[w + 1]  # 내 다음애
+#         if abs(chknum - way[w]) >= 2:
+#             return 1
+#         if chknum - way[w] == 1:  # 다음애가 1큼
+#             for k in range(K):
+#
+#                 if chknum != way[w - k]:
+#                     return 1
+#         if way[w] - chknum == 1:  # 다음애가 1작음
+#             for k in range(2, K + 1):
+#                 if chknum != way[w + k]:
+#                     return 1
+#     return 0
+#
+#
+# def const2(way):
+#     for w in range(K, N):
+#         chknum = way[w - 1]  # 내 이전애
+#         if abs(chknum - way[w]) >= 2:
+#             return 1
+#         if chknum - way[w] == 1:  # 이전애가 1큼
+#             for k in range(2, K+1):
+#                 if chknum != way[w - k]:
+#                     return 1
+#         if way[w] - chknum == 1:  # 이전애가 1작음
+#             for k in range(2, K+1):
+#                 if chknum != way[w - k]:
+#                     return 1
+#     return 0
+#
+#
+# def const3(way):
+#     if (K*2) + 2 <= N:
+#         for w in range(N - (K*2)):
+#             chknum = way[w + 1]
+#             if chknum == way[w] - 1:
+#                 for k in range(K*2):
+#                     if chknum != way[w+k]:
+#                         return 1
+#     return 0
