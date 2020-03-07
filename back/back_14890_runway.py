@@ -53,7 +53,6 @@ def const_down(way, w, chk):
     return 0
 
 
-chksum = 0
 poplist = []
 for way in waylist:
     idxlist = []
@@ -74,11 +73,9 @@ for way in waylist:
                 if const_down(way, w, pre):
                     chksum += 1
                     break
-    if chksum != 0:
-        poplist.append(way)
+        if chksum != 0:
+            poplist.append(way)
 
 for p in poplist:
-    if p not in waylist:
-        continue
     waylist.remove(p)
 print(len(waylist))
