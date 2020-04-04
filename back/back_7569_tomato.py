@@ -17,10 +17,9 @@ def check(day):
 
 
 day = 1
-flag = 0
 dir = [[0, 0, -1], [0, 0, 1], [0, -1, 0], [0, 1, 0], [-1, 0, 0], [1, 0, 0]]
 def bfs(q):
-    global day, flag
+    global day
     v = [[[0]*M for _ in range(N)] for _ in range(H)]
     while q:
         for _ in range(len(q)):
@@ -34,8 +33,7 @@ def bfs(q):
                         q.append((xx, yy, zz))
         chk = check(day)
         if chk == 0:
-            flag = 1  # 0없으니 나가서 day나 세라
-            return day
+            return day  # 0없으니 나가서 day나 세라
         else:
             day += 1  # 하루가 지나염
     return -1  # 0이 있어 ...
