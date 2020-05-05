@@ -10,10 +10,10 @@ for tc in range(1, 11):
 
     def personQ(s, cnt):
         q = [s]
-        print(q, ',q')
-        visited[s] = cnt
+        visited[s] = cnt - 1
         while q:
-            for _ in range(len(q)):
+            lenq = len(q)
+            for _ in range(lenq):
                 cur = q.pop(0)
                 for val in perList[cur]:
                     if visited[val] == 0:
@@ -22,10 +22,10 @@ for tc in range(1, 11):
             cnt += 1
 
     for l in range(len(L)):
-        if l % 2 == 0:
+        if (l % 2) == 0:
             perList[L[l]].append(L[l+1])
 
-    personQ(start, 1)
+    personQ(start, 2)
     maxx = max(visited)
     for i, v in enumerate(visited):
         if v == maxx:
