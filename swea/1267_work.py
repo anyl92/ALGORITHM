@@ -14,3 +14,4 @@ for tc in range(1, 11):
         if i % 2 == 0:
             rangeList[L[i]].append(L[i+1])
     print(rangeList)
+
