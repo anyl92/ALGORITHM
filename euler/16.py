@@ -1,7 +1,5 @@
-a = 1
+a = 2 ** 1000
 answer = 0
-for _ in range(1000):
-  a *= 2
 
 while a > 0:
   answer += (a % 10)

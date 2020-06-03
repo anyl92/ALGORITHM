@@ -19,18 +19,16 @@ tri = [
 cache = [[0 for _ in range(15)] for _ in range(15)]
 
 def DP(y, x):
-    if y == 15:
-        return 0
-    if x < 0 or x == 15:
-        return -999999
-    
-    if cache[y][x] != 0:
-        return cache[y][x]
-    
-    a = DP(y+1, x) + tri[y][x]
-    b = DP(y+1, x+1) + tri[y][x]
+	if y == 15:
+		return 0
 
-    cache[y][x] = max(a, b)
-    return cache[y][x]
+	if cache[y][x] != 0:
+		return cache[y][x]
+
+	a = tri[y][x] + DP(y+1, x)
+	b = tri[y][x] + DP(y+1, x+1)
+
+	cache[y][x] = max(a, b)
+	return cache[y][x]
 
 print(DP(0, 0))
