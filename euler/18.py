@@ -13,10 +13,12 @@ tri = [
 	[ 70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57, 0, 0, 0 ],
 	[ 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 0, 0 ],
 	[ 63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31, 0 ],
-	[ 4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23 ]
+	[ 4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23 ],
+	[0 for _ in range(16)]
 ]
 
-cache = [[0 for _ in range(15)] for _ in range(15)]
+cache = [[0 for _ in range(16)] for _ in range(16)]
+
 
 def DP(y, x):
 	if y == 15:
@@ -30,5 +32,16 @@ def DP(y, x):
 
 	cache[y][x] = max(a, b)
 	return cache[y][x]
+
+
+def DP_():
+	for i in range(14, -1, -1):
+		for j in range(0, i + 1):
+			cache[i][j] = tri[i][j] + max(cache[i + 1][j], cache[i + 1][j + 1])
+
+
+DP_()
+print(cache[0][0])
+
 
 print(DP(0, 0))
