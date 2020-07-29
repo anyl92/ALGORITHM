@@ -97,7 +97,7 @@ print(custom_data)
 com_list = PriorityQueue(5)
 cnt_list = []
 
-for data in custom_data:
-    if data[1] == 'i':
-        com_list.put(data)
-    else:
+# for data in custom_data:
+#     if data[1] == 'i':
+#         com_list.put(data)
+#     else:
