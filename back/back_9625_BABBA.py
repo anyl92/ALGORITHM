@@ -21,10 +21,6 @@ def top_down_fibo(n):
 
 if K == 0:
     print(a, b)
-elif K == 1:
-    a -= 1
-    b += 1
-    print(a, b)
 else:
     top_down_fibo(K)
     print(fibo[-2], fibo[-1])
