@@ -19,10 +19,11 @@ for i in range(N):
             cur = L[i][j]
             smell[i][j] = [cur, k]
             L[i][j] = [cur, d[cur-1]]
-time = 0
+time = 1
 
 while True:
     if time > 1000:
+        print(time)
         print(-1)
         break
 
@@ -38,13 +39,13 @@ while True:
                 for p in cur_p:
                     idx, jdx = dir[p-1]
                     if 0 <= i+idx < N and 0 <= j+jdx < N:
-                        if smell[i+idx][j+jdx] == []:
+                        if not smell[i + idx][j + jdx]:
                             onego_list += [[i + idx, j + jdx, p]]
                             break
                         elif smell[i+idx][j+jdx][0] == cur_n:
                             twogo_list += [[i + idx, j + jdx, p]]
 
-                if onego_list != []:
+                if onego_list:
                     ii, jj, pp = onego_list.pop(0)
                 else:
                     ii, jj, pp = twogo_list.pop(0)
@@ -68,6 +69,14 @@ while True:
                 if smell[a][b][1] == 0:
                     smell[a][b] = []
 
+    x_list = []
+    for x in sum(move, []):
+        if x:
+            x_list += [x[0]]
+    if len(x_list) == 1 and x_list[0] == 1:
+        print(time)
+        break
+
     # 배열복사 냄새깔기
     L = [[0 for _ in range(N)] for _ in range(N)]
     for a in range(N):
@@ -77,11 +86,3 @@ while True:
                 smell[a][b] = [move[a][b][0], k]
 
     time += 1
-
-    x_list = []
-    for x in sum(L, []):
-        if x:
-            x_list += [x[0]]
-    if len(x_list) == 1 and x_list[0] == 1:
-        print(time)
-        break
