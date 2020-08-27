@@ -23,7 +23,6 @@ time = 1
 
 while True:
     if time > 1000:
-        print(time)
         print(-1)
         break
 
@@ -54,7 +53,7 @@ while True:
                     cur = move[ii][jj]
                     new = L[i][j]
                     if cur[0] < new[0]:
-                        move[ii][jj] = [cur[0], pp]
+                        move[ii][jj] = cur
                     else:
                         move[ii][jj] = [new[0], pp]
                 else:
