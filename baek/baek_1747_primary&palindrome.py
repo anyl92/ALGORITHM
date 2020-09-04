@@ -6,7 +6,7 @@ def primary(n):
     return True
 
 
-def pelindrome(n):
+def palindrome(n):
     if n[::-1] != n:
         return False
     return True
@@ -17,7 +17,7 @@ while True:
     if num == 1:
         print(2)
         break
-    if pelindrome(str(num)) and primary(num):
+    if palindrome(str(num)) and primary(num):
         print(num)
         break
     num += 1
