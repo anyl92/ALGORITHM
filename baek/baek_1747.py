@@ -14,6 +14,9 @@ def pelindrome(n):
 
 num = int(input())
 while True:
+    if num == 1:
+        print(2)
+        break
     if pelindrome(str(num)) and primary(num):
         print(num)
         break
