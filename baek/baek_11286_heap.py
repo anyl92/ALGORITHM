@@ -4,6 +4,7 @@ sys.stdin = open('11286.txt', 'r')
 N = int(input())
 L = [int(input()) for _ in range(N)]
 
+
 res = []
 for x in L:
     if x != 0:
