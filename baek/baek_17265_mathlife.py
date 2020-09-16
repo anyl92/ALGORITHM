@@ -7,26 +7,21 @@ V = [[0 for _ in range(N)] for _ in range(N)]
 
 OP = ['+', '-', '*']
 dir = [[1, 0], [0, 1]]  # 아래, 오른쪽
-
 ans_list = []
-cur_OP = -1
 
 
 def recul(y, x, pre):
-    global cur_OP
-
     for yy, xx in dir:
         yy, xx = y+yy, x+xx
 
         if 0 <= yy < N and 0 <= xx < N:
             pre_int = pre
-            if L[y][x] in OP and V[yy][xx] == 0:
-                cur_OP = OP.index(L[y][x])
 
+            if L[y][x] in OP and V[yy][xx] == 0:
                 next_int = int(L[yy][xx])
-                if cur_OP == 0:
+                if L[y][x] == '+':
                     pre += next_int
-                elif cur_OP == 1:
+                elif L[y][x] == '-':
                     pre -= next_int
                 else:
                     pre *= next_int
