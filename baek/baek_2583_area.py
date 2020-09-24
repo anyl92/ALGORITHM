@@ -2,6 +2,7 @@ import sys
 sys.stdin = open('2583.txt', 'r')
 
 M, N, K = map(int, input().split())
+
 location = [list(map(int, input().split())) for _ in range(K)]
 cnt_list = []
 
