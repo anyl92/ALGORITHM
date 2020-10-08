@@ -67,7 +67,7 @@ def preorder(L, n):
     return cnt
 
 
-def dfs(i, cnt):
+# def dfs(i, cnt):
 
 
 
