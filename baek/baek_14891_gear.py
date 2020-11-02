@@ -2,8 +2,6 @@ import sys
 sys.stdin = open('14891.txt', 'r')
 
 gears = [list(map(int, input())) for _ in range(4)]  # S=1  N=0
-# print(gears)
-
 int_gears = []
 for gear in gears:
     cnt, ans = 7, 0
@@ -13,7 +11,36 @@ for gear in gears:
             ans += 2 ** cnt
         cnt -= 1
     int_gears.append(ans)
-# print(int_gears, list(map(bin, int_gears)))
+
+
+def set_j(i):
+    if i % 2 != chk:
+        return not dir
+    else:
+        return dir
+
+
+def turn(i, x):
+    if x:
+        int_gears[i] = (int_gears[i] | ((int_gears[i] & 1) << 8)) >> 1
+    else:
+        int_gears[i] = ((int_gears[i] << 1) | (int_gears[i] >> 7)) & ~(1 << 8)
+
+
+def spread(i, flag):
+    while 0 <= i < 3:
+        if not xor_list[i]:
+            break
+
+        if flag == 1:
+            i += 1
+
+        j = set_j(i)
+        turn(i, j)
+
+        if flag == -1:
+            i -= 1
+
 
 K = int(input())
 for _ in range(K):
@@ -21,7 +48,6 @@ for _ in range(K):
     xor_list = []
     for i in range(3):
         xor_list.append(bool(int_gears[i] & (1 << 5)) ^ bool(int_gears[i + 1] & (1 << 1)))
-    # print(xor_list)
 
     num, dir = map(int, input().split())
     if dir == -1:
@@ -30,46 +56,9 @@ for _ in range(K):
     i = num - 1
     chk = i % 2
 
-    if dir:
-        int_gears[i] = (int_gears[i] | ((int_gears[i] & 1) << 8)) >> 1
-    else:
-        int_gears[i] = ((int_gears[i] << 1) | (int_gears[i] >> 7)) & ~(1 << 8)
-    # print(int_gears, list(map(bin, int_gears)), '자신')
-
-    while i:  # 0까지내려가기
-        i -= 1
-        if not xor_list[i]:
-            break
-
-        if i % 2 != chk:
-            j = not dir
-        else:
-            j = dir
-
-        if j:
-            int_gears[i] = (int_gears[i] | ((int_gears[i] & 1) << 8)) >> 1
-        else:
-            int_gears[i] = ((int_gears[i] << 1) | (int_gears[i] >> 7)) & ~(1 << 8)
-    # print(int_gears, list(map(bin, int_gears)), '왼쪽')
-
-    i = num - 1
-    while i < 3:  # 3까지올라가기
-        if not xor_list[i]:
-            break
-
-        i += 1
-        if i % 2 != chk:
-            j = not dir
-        else:
-            j = dir
-
-        if j:
-            int_gears[i] = (int_gears[i] | ((int_gears[i] & 1) << 8)) >> 1
-        else:
-            int_gears[i] = ((int_gears[i] << 1) | (int_gears[i] >> 7)) & ~(1 << 8)
-    # print(int_gears, list(map(bin, int_gears)), '오른쪽')
-
-# print(int_gears, list(map(bin, int_gears)), '초종')
+    turn(i, dir)
+    spread(i-1, -1)
+    spread(i, 1)
 
 res = 0
 for i in range(4):
