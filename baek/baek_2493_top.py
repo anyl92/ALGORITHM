@@ -7,8 +7,6 @@ L = list(map(int, input().split()))
 s = []
 for i, v in enumerate(L):
     if s:
-        # if s[-1][1] > v:  # 직전 탑에 보낼 수 있을 때
-        #     print(s[-1][0]+1, end=' ')
         if s[-1][1] <= v:  # 직전 탑이 나보다 작거나 같을 때
             while s and s[-1][1] < v:  # 우선 작은 걸 다 빼
                 s.pop()
@@ -17,12 +15,10 @@ for i, v in enumerate(L):
                 s.append([i, v])
                 continue
             if s[-1][1] == v:  # 작은걸 다 뺀 후 같은 높이다? 갈아치우기
-                # print(s[-1][0]+1, end=' ')
                 s.pop()
-            # else:  # 가장 가까운 나보다 큰 높이이므로 출력
-        print(s[-1][0]+1, end=' ')
+        print(s[-1][0]+1, end=' ')  # 직전 탑이 나보다 클 때
     else:
-        print(0, end=' ')
+        print(0, end=' ')  # 보낼 탑이 없을 때
     s.append([i, v])
 
 '6 4 5 2 5 1'
@@ -44,19 +40,3 @@ s = [[6, 1], [5, 5]] => 1일때는 5인덱스 출력 후 1push
 8이 들어오면 s[-1]는작고 max가9인데 9 idx까지 찾아가면서 큰거찾기
 그럼 처음엔 s[-1]이 큰 걸 찾아야함
 '''
-# for i, v in enumerate(L):
-#     if s and s[-1] > v:
-#         print(i, end=' ')
-#     elif i > 1 and s_max[1] >= v:
-#         j = i - 2
-#         while True:
-#             if j == s_max[0] or s[j] >= v:
-#                 print(j+1, end=' ')
-#                 break
-#             j -= 1
-#     else:
-#         print(0, end=' ')
-#
-#     s.append(v)
-#     if v > s_max[1]:
-#         s_max[0], s_max[1] = i, v
